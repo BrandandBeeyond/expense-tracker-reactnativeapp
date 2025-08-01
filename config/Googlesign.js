@@ -1,15 +1,31 @@
 // import statusCodes along with GoogleSignin
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import { Routes } from '../navigation/Routes';
 
-// Somewhere in your code
-export const signIn = async () => {
+
+
+
+export const signIn = async (navigation) => {
+
+  
   try {
     await GoogleSignin.hasPlayServices();
     const userInfo = await GoogleSignin.signIn();
     console.log('User Info:', userInfo);
+
+    const onboarded = await AsyncStorage.getItem('hasOnBoarded');
+
+    if(onboarded === null){
+       navigation.replace(Routes.OnboardingScreens);
+    }
+    else{
+       navigation.replace(Routes.HomeScreen);
+    }
+
   } catch (error) {
     console.error('Google Sign-in error:', error);
     if (error.code) {

@@ -98,6 +98,14 @@ export const globalStyle = StyleSheet.create({
     borderRadius: horizontalScale(15),
     borderWidth: horizontalScale(0),
   },
+  budgetInput: {
+    backgroundColor:'#7de683ff',
+    width: Dimensions.get('window').width - 40,
+    borderColor:'#8ae38eff',
+    color: '#ffffff',
+    borderRadius: horizontalScale(15),
+    borderWidth: horizontalScale(0),
+  },
   rounded2: {
     borderRadius: horizontalScale(5),
   },

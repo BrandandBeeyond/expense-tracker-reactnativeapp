@@ -3,26 +3,37 @@ import AuthScreen from '../screens/authscreen/AuthScreen';
 import HomeScreen from '../screens/homescreen/HomeScreen';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import OnboardingScreens from '../screens/onboardingscreens/OnboardingScreens';
 
 const Stack = createStackNavigator();
 
 export const MainNavigation = () => {
-
   const [showOnBoarding, setShowOnBoarding] = useState(null);
 
-  useEffect(()=>{
-      const checkOnBoarding=async()=>{
-           const onboarded = await AsyncStorage.getItem('hasOnboarded');
-           setShowOnBoarding(onboarded === null);
-      }
-      checkOnBoarding();
-  },[]);
+  useEffect(() => {
+    const checkOnBoarding = async () => {
+      const onboarded = await AsyncStorage.getItem('hasOnboarded');
+      setShowOnBoarding(onboarded === null);
+    };
+    checkOnBoarding();
+  }, []);
 
-  if(showOnBoarding === null) return null;
+  if (showOnBoarding === null) return null;
   return (
     <Stack.Navigator>
-      <Stack.Screen name="AuthScreen" component={AuthScreen} options={{headerShown:false}}/>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} options={{header:null}}/>
+      <Stack.Screen
+        name="AuthScreen"
+        component={AuthScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{ header: null }}
+      />
+      {showOnBoarding && (
+        <Stack.Screen name="OnboardingScreens" component={OnboardingScreens} options={{headerShown:false}}/>
+      )}
     </Stack.Navigator>
   );
 };

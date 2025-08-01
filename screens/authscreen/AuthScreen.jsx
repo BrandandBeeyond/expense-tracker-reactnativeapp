@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
 import {
-  Image,
-  Pressable,
   SafeAreaView,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import { globalStyle } from '../../assets/styles/gloabalStyle';
-import { horizontalScale, scaleFontSize, verticalScale } from '../../assets/styles/Scaling';
-import { Button, Icon, TextInput } from 'react-native-paper';
+import { scaleFontSize, verticalScale } from '../../assets/styles/Scaling';
+import { Button, TextInput } from 'react-native-paper';
 // import GoogleLogo from '../../assets/images/icons/google.png';
 import {
   GoogleSignin,
   GoogleSigninButton,
-  statusCodes,
 } from '@react-native-google-signin/google-signin';
 import { IOS_CLIENT_ID, WEB_CLIENT_ID } from '../../config/Key';
 import { signIn } from '../../config/Googlesign';
+import { useNavigation } from '@react-navigation/native';
 
 GoogleSignin.configure({
   webClientId: WEB_CLIENT_ID,
@@ -29,6 +26,12 @@ GoogleSignin.configure({
 
 const Login = () => {
   const [passwordShow, setPasswordShow] = useState(false);
+  const navigation = useNavigation();
+
+
+  const handleSignIn=()=>{
+    signIn(navigation);
+  }
 
   return (
     <>
@@ -62,12 +65,14 @@ const Login = () => {
             theme={{
               colors: {
                 text: '#ffffff',
-                placeholder: '#bbbbbb', // label color
+                placeholder: '#bbbbbb', 
+                primary:'#e76a3d',
+                outline:'#202020ff'
               },
             }}
           />
         </View>
-        <View style={[globalStyle.mt20, { width: '100%' }]}>
+        {/* <View style={[globalStyle.mt20, { width: '100%' }]}>
           <TextInput
             label="Password"
             secureTextEntry={!passwordShow}
@@ -89,7 +94,7 @@ const Login = () => {
               },
             }}
           />
-        </View>
+        </View> */}
         <View style={globalStyle.mt10}>
           <Text
             style={{
@@ -105,31 +110,20 @@ const Login = () => {
         <View style={globalStyle.mt20}>
           <Button
             mode="contained"
+            buttonColor='#e76a3d'
             style={[globalStyle.py5, globalStyle.rounded2, globalStyle.fs4]}
           >
-            Login
+            Continue
           </Button>
         </View>
 
         <View style={[globalStyle.mt100]}>
-          {/* <Pressable
-            style={[
-              globalStyle.drow,
-              globalStyle.aligncenter,
-              globalStyle.cg5,
-              globalStyle.signgoogle,
-            ]}
-          >
-            <Image source={GoogleLogo} style={{ width: 25, height: 25 }} />
-            <Text style={{ fontSize: scaleFontSize(14) }}>
-              Sign in with Google
-            </Text>
-          </Pressable> */}
+      
           <GoogleSigninButton
              style={{width:'100%',height:verticalScale(45)}}
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Light}
-            onPress={signIn}
+            onPress={handleSignIn}
             disabled={false}
           />
           ;

@@ -1,5 +1,6 @@
 
 export const Routes = {
     AuthScreen:'AuthScreen',
-    HomeScreen:'HomeScreen'
+    HomeScreen:'HomeScreen',
+    OnboardingScreens:'OnboardingScreens'
 }
