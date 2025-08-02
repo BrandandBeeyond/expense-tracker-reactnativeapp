@@ -30,6 +30,9 @@ export const globalStyle = StyleSheet.create({
   mt10: {
     marginTop: verticalScale(10),
   },
+  mt15:{
+    marginTop: verticalScale(15),
+  },
   mt20: {
     marginTop: verticalScale(20),
   },
@@ -122,5 +125,8 @@ export const globalStyle = StyleSheet.create({
   },
   cg5:{
     gap:horizontalScale(10)
+  },
+  textMain:{
+    color:'#e76a3d'
   }
 });

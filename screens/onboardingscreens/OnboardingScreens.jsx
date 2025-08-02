@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, View } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
-import { Button, TextInput } from 'react-native-paper';
+import { Button, RadioButton, TextInput } from 'react-native-paper';
 import { globalStyle } from '../../assets/styles/gloabalStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -14,16 +14,30 @@ import LottieView from 'lottie-react-native';
 const OnboardingScreens = () => {
   const [budget, setBudget] = useState('');
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [scrollEnabled, setScrollEnabled] = useState(false);
   const onBoardingRef = useRef();
 
-  const handleNext = () => {
-    if (!budget) return Alert.alert('Please enter a monthly budget');
+  const [formData, setFormData] = useState({
+    name: '',
+    gender: '',
+    mobile: '',
+    password: '',
+  });
+
+  const handleFormNext = () => {
+    const { name, mobile, gender, password } = formData;
+
+    if (!name || !mobile || !gender || !password) {
+      Alert.alert('All fields are required');
+      return;
+    }
 
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      onBoardingRef.current.goToPage(2, true);
-    }, 3000);
+      onBoardingRef.current.goToPage(1, true);
+    }, 1000);
   };
 
   const handleFinish = async () => {
@@ -36,9 +50,17 @@ const OnboardingScreens = () => {
   return (
     <Onboarding
       ref={onBoardingRef}
-      showNext={true}
       showDone={false}
+      showNext={false}
       showSkip={false}
+      bottomBarHeight={0}
+      pageIndexCallback={index => {
+        setCurrentPage(index);
+        setScrollEnabled(index !== 0);
+      }}
+      flatlistProps={{
+        scrollEnabled: scrollEnabled, 
+      }}
       pages={[
         {
           backgroundColor: '#17181c',
@@ -48,15 +70,18 @@ const OnboardingScreens = () => {
               style={{
                 alignItems: 'center',
                 paddingHorizontal: horizontalScale(10),
-                width: '100%',
               }}
             >
-              <View style={[globalStyle.mt30, { width: '100%' }]}>
+              <View style={[{ width: '100%' }]}>
                 <TextInput
-                  label="name"
+                  label="Name"
                   mode="outlined"
+                  value={formData.name}
+                  onChangeText={text =>
+                    setFormData({ ...formData, name: text })
+                  }
                   underlineColor="transparent"
-                  style={globalStyle.authInput}
+                  style={[globalStyle.authInput, globalStyle.mt30]}
                   textColor="#ffffff"
                   theme={{
                     colors: {
@@ -67,6 +92,94 @@ const OnboardingScreens = () => {
                     },
                   }}
                 />
+                <TextInput
+                  label="Mobile"
+                  mode="outlined"
+                  underlineColor="transparent"
+                  keyboardType="phone-pad"
+                  value={formData.mobile}
+                  onChangeText={text =>
+                    setFormData({ ...formData, mobile: text })
+                  }
+                  style={[globalStyle.authInput, globalStyle.mt15]}
+                  textColor="#ffffff"
+                  theme={{
+                    colors: {
+                      text: '#ffffff',
+                      placeholder: '#bbbbbb',
+                      primary: '#e76a3d',
+                      outline: '#202020ff',
+                    },
+                  }}
+                />
+                <View style={globalStyle.mt20}>
+                  <Text
+                    style={[
+                      styles.normalText,
+                      globalStyle.textMain,
+                      { paddingStart: horizontalScale(6) },
+                    ]}
+                  >
+                    Select Gender
+                  </Text>
+
+                  <RadioButton.Group
+                    value={formData.gender}
+                    onValueChange={value =>
+                      setFormData({ formData, gender: value })
+                    }
+                  >
+                    <View style={{ flexDirection: 'row', gap: '20' }}>
+                      <RadioButton.Item
+                        label="Male"
+                        value="male"
+                        theme={{ colors: { primary: '#e76a3d' } }}
+                        labelStyle={{ color: '#e76a3d' }}
+                      />
+                      <RadioButton.Item
+                        label="Female"
+                        value="female"
+                        theme={{ colors: { primary: '#e76a3d' } }}
+                        labelStyle={{ color: '#e76a3d' }}
+                      />
+                    </View>
+                  </RadioButton.Group>
+                </View>
+
+                <TextInput
+                  label="Password"
+                  mode="outlined"
+                  underlineColor="transparent"
+                  keyboardType="phone-pad"
+                  value={formData.mobile}
+                  onChangeText={text =>
+                    setFormData({ ...formData, mobile: text })
+                  }
+                  style={[globalStyle.authInput, globalStyle.mt15]}
+                  textColor="#ffffff"
+                  theme={{
+                    colors: {
+                      text: '#ffffff',
+                      placeholder: '#bbbbbb',
+                      primary: '#e76a3d',
+                      outline: '#202020ff',
+                    },
+                  }}
+                />
+
+                <View style={globalStyle.mt40}>
+                  <Button
+                    mode="contained"
+                    buttonColor="#e76a3d"
+                    style={[
+                      globalStyle.py5,
+                      globalStyle.rounded2,
+                      globalStyle.fs4,
+                    ]}
+                  >
+                    Continue
+                  </Button>
+                </View>
               </View>
             </View>
           ),
@@ -133,6 +246,11 @@ const styles = StyleSheet.create({
   smallText: {
     fontSize: scaleFontSize(15),
     lineHeight: verticalScale(21),
+    marginBottom: verticalScale(10),
+  },
+  normalText: {
+    fontSize: scaleFontSize(16),
+    lineHeight: verticalScale(22),
     marginBottom: verticalScale(10),
   },
 });
