@@ -4,6 +4,7 @@ import HomeScreen from '../screens/homescreen/HomeScreen';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreens from '../screens/onboardingscreens/OnboardingScreens';
+import PasswordScreen from '../screens/authscreen/PasswordScreen';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,11 @@ export const MainNavigation = () => {
       <Stack.Screen
         name="AuthScreen"
         component={AuthScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PasswordScreen"
+        component={PasswordScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

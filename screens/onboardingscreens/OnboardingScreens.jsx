@@ -205,7 +205,7 @@ const OnboardingScreens = () => {
                 autoPlay
                 loop={true}
                 style={{ height: 400, width: 400 }}
-                source={require('../../svg/Finance.json')}
+                source={require('../../svg/FinanceSvg.json')}
               />
               <Text style={styles.smallText}>
                 Start managing your daily expenses like a pro with our

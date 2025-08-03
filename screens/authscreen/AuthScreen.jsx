@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import {
-  SafeAreaView,
-  Text,
-  View,
-} from 'react-native';
+import { Alert, SafeAreaView, Text, View } from 'react-native';
 import { globalStyle } from '../../assets/styles/gloabalStyle';
-import { scaleFontSize, verticalScale } from '../../assets/styles/Scaling';
+import {verticalScale } from '../../assets/styles/Scaling';
 import { Button, TextInput } from 'react-native-paper';
-// import GoogleLogo from '../../assets/images/icons/google.png';
+
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -15,6 +11,9 @@ import {
 import { IOS_CLIENT_ID, WEB_CLIENT_ID } from '../../config/Key';
 import { signIn } from '../../config/Googlesign';
 import { useNavigation } from '@react-navigation/native';
+import { CheckUserExists } from '../../redux/actions/UserAction';
+import { useDispatch } from 'react-redux';
+import { Routes } from '../../navigation/Routes';
 
 GoogleSignin.configure({
   webClientId: WEB_CLIENT_ID,
@@ -25,13 +24,38 @@ GoogleSignin.configure({
 });
 
 const Login = () => {
-  const [passwordShow, setPasswordShow] = useState(false);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSignIn=()=>{
+  const handleSignIn = () => {
     signIn(navigation);
-  }
+  };
+
+  const handleContinue = async () => {
+    if (!email.trim()) return;
+
+    const normalizedEmail = email.trim().toLowerCase();
+    setLoading(true);
+
+    try {
+      const userExist = await dispatch(CheckUserExists(normalizedEmail));
+
+      if(userExist){
+         navigation.navigate(Routes.PasswordScreen,{email: normalizedEmail});
+      }else{
+        navigation.navigate(Routes.OnboardingScreens, { email: normalizedEmail });
+      }
+    } catch (error) {
+      console.error('Error checking user existence:', error);
+      Alert.alert('error checking user existence', error.message);
+    }finally{
+      setLoading(false);
+      setEmail(''); 
+    }
+  };
 
   return (
     <>
@@ -65,52 +89,18 @@ const Login = () => {
             theme={{
               colors: {
                 text: '#ffffff',
-                placeholder: '#bbbbbb', 
-                primary:'#e76a3d',
-                outline:'#202020ff'
+                placeholder: '#bbbbbb',
+                primary: '#e76a3d',
+                outline: '#202020ff',
               },
             }}
           />
-        </View>
-        {/* <View style={[globalStyle.mt20, { width: '100%' }]}>
-          <TextInput
-            label="Password"
-            secureTextEntry={!passwordShow}
-            mode="outlined"
-            underlineColor="transparent"
-            right={
-              <TextInput.Icon
-                icon={passwordShow ? 'eye-off' : 'eye'}
-                color={'#cccccc'}
-                onPress={() => setPasswordShow(!passwordShow)}
-              />
-            }
-            style={globalStyle.authInput}
-            textColor="#ffffff"
-            theme={{
-              colors: {
-                text: '#ffffff',
-                placeholder: '#bbbbbb', // label color
-              },
-            }}
-          />
-        </View> */}
-        <View style={globalStyle.mt10}>
-          <Text
-            style={{
-              fontSize: scaleFontSize(13),
-              color: '#cccccc',
-              textAlign: 'right',
-            }}
-          >
-            Forgot Password ?
-          </Text>
         </View>
 
         <View style={globalStyle.mt20}>
           <Button
             mode="contained"
-            buttonColor='#e76a3d'
+            buttonColor="#e76a3d"
             style={[globalStyle.py5, globalStyle.rounded2, globalStyle.fs4]}
           >
             Continue
@@ -118,9 +108,8 @@ const Login = () => {
         </View>
 
         <View style={[globalStyle.mt100]}>
-      
           <GoogleSigninButton
-             style={{width:'100%',height:verticalScale(45)}}
+            style={{ width: '100%', height: verticalScale(45) }}
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Light}
             onPress={handleSignIn}
@@ -130,14 +119,6 @@ const Login = () => {
         </View>
       </View>
     </>
-  );
-};
-
-const signUp = () => {
-  return (
-    <View>
-      <Text style={{ color: '#ffffff' }}>Hello signup</Text>
-    </View>
   );
 };
 
