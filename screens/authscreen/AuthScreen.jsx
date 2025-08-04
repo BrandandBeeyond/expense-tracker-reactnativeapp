@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
-import { Alert, SafeAreaView, Text, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  SafeAreaView,
+  Text,
+  View,
+} from 'react-native';
 import { globalStyle } from '../../assets/styles/gloabalStyle';
-import {verticalScale } from '../../assets/styles/Scaling';
+import { verticalScale } from '../../assets/styles/Scaling';
 import { Button, TextInput } from 'react-native-paper';
 
 import {
@@ -27,11 +33,29 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const emailRef = useRef();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    if (emailRef.current) {
+      emailRef.current.focus();
+    }
+  }, []);
 
   const handleSignIn = () => {
     signIn(navigation);
+  };
+
+  const isValidEmail = email => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleEmailChange = text => {
+    setEmail(text);
+    setButtonDisabled(!isValidEmail(text));
   };
 
   const handleContinue = async () => {
@@ -43,17 +67,19 @@ const Login = () => {
     try {
       const userExist = await dispatch(CheckUserExists(normalizedEmail));
 
-      if(userExist){
-         navigation.navigate(Routes.PasswordScreen,{email: normalizedEmail});
-      }else{
-        navigation.navigate(Routes.OnboardingScreens, { email: normalizedEmail });
+      if (userExist) {
+        navigation.navigate(Routes.PasswordScreen, { email: normalizedEmail });
+      } else {
+        navigation.navigate(Routes.OnboardingScreens, {
+          email: normalizedEmail,
+        });
       }
     } catch (error) {
       console.error('Error checking user existence:', error);
       Alert.alert('error checking user existence', error.message);
-    }finally{
+    } finally {
       setLoading(false);
-      setEmail(''); 
+      setEmail('');
     }
   };
 
@@ -67,7 +93,7 @@ const Login = () => {
             globalStyle.textcenter,
           ]}
         >
-          Welcome Back !
+          Getting Started !
         </Text>
         <Text
           style={[
@@ -83,6 +109,9 @@ const Login = () => {
           <TextInput
             label="Email"
             mode="outlined"
+            ref={emailRef}
+            value={email}
+            onChangeText={handleEmailChange}
             underlineColor="transparent"
             style={globalStyle.authInput}
             textColor="#ffffff"
@@ -100,10 +129,22 @@ const Login = () => {
         <View style={globalStyle.mt20}>
           <Button
             mode="contained"
-            buttonColor="#e76a3d"
-            style={[globalStyle.py5, globalStyle.rounded2, globalStyle.fs4]}
+            style={[
+              globalStyle.py5,
+              globalStyle.rounded2,
+              globalStyle.fs4,
+              {
+                backgroundColor: buttonDisabled ? '#ef9271ff' : '#e76a3d', // 👈 override color here
+              },
+            ]}
+            disabled={buttonDisabled}
+            onPress={handleContinue}
           >
-            Continue
+            {loading ? (
+              <ActivityIndicator color={'#ffffff'} size={20} />
+            ) : (
+              'Continue'
+            )}
           </Button>
         </View>
 

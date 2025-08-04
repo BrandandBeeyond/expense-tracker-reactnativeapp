@@ -10,13 +10,16 @@ import {
   verticalScale,
 } from '../../assets/styles/Scaling';
 import LottieView from 'lottie-react-native';
+import { RegisterNewUser } from '../../redux/actions/UserAction';
 
-const OnboardingScreens = () => {
+const OnboardingScreens = ({ navigation, route }) => {
   const [budget, setBudget] = useState('');
   const [loading, setLoading] = useState(false);
+   const [passwordShow, setPasswordShow] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const onBoardingRef = useRef();
+  const { email } = route.params || {};
 
   const [formData, setFormData] = useState({
     name: '',
@@ -25,7 +28,7 @@ const OnboardingScreens = () => {
     password: '',
   });
 
-  const handleFormNext = () => {
+  const handlePreRegister = () => {
     const { name, mobile, gender, password } = formData;
 
     if (!name || !mobile || !gender || !password) {
@@ -34,10 +37,16 @@ const OnboardingScreens = () => {
     }
 
     setLoading(true);
-    setTimeout(() => {
+    try {
+      setTimeout(() => {
+        setLoading(false);
+        RegisterNewUser(name, email, mobile, gender, password);
+        onBoardingRef.current.goToPage(1, true);
+      }, 1000);
+    } catch (error) {
       setLoading(false);
-      onBoardingRef.current.goToPage(1, true);
-    }, 1000);
+      Alert.alert('Registration Failed', error.message || 'Please try again');
+    }
   };
 
   const handleFinish = async () => {
@@ -53,18 +62,21 @@ const OnboardingScreens = () => {
       showDone={false}
       showNext={false}
       showSkip={false}
-      bottomBarHeight={0}
       pageIndexCallback={index => {
         setCurrentPage(index);
         setScrollEnabled(index !== 0);
       }}
       flatlistProps={{
-        scrollEnabled: scrollEnabled, 
+        scrollEnabled: scrollEnabled,
       }}
       pages={[
         {
           backgroundColor: '#17181c',
-          title: 'Get Started',
+          title: 'Create Account',
+          titleStyles: {
+            fontSize: scaleFontSize(25),
+          },
+
           subtitle: (
             <View
               style={{
@@ -72,6 +84,16 @@ const OnboardingScreens = () => {
                 paddingHorizontal: horizontalScale(10),
               }}
             >
+              <Text
+                style={[
+                  globalStyle.mainFont,
+                  globalStyle.textWhite,
+                  { fontSize: scaleFontSize(15) },
+                ]}
+              >
+                Welcome to ExpenseEase !
+              </Text>
+
               <View style={[{ width: '100%' }]}>
                 <TextInput
                   label="Name"
@@ -148,14 +170,20 @@ const OnboardingScreens = () => {
 
                 <TextInput
                   label="Password"
+                  secureTextEntry={!passwordShow}
                   mode="outlined"
-                  underlineColor="transparent"
-                  keyboardType="phone-pad"
-                  value={formData.mobile}
+                  value={formData.password}
                   onChangeText={text =>
-                    setFormData({ ...formData, mobile: text })
+                    setFormData({ ...formData, password: text })}
+                  underlineColor="transparent"
+                  right={
+                    <TextInput.Icon
+                      icon={passwordShow ? 'eye-off' : 'eye'}
+                      color={'#cccccc'}
+                      onPress={() => setPasswordShow(!passwordShow)}
+                    />
                   }
-                  style={[globalStyle.authInput, globalStyle.mt15]}
+                  style={globalStyle.authInput}
                   textColor="#ffffff"
                   theme={{
                     colors: {
@@ -166,10 +194,10 @@ const OnboardingScreens = () => {
                     },
                   }}
                 />
-
                 <View style={globalStyle.mt40}>
                   <Button
                     mode="contained"
+                    onPress={handlePreRegister}
                     buttonColor="#e76a3d"
                     style={[
                       globalStyle.py5,

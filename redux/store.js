@@ -8,7 +8,7 @@ import { thunk } from "redux-thunk";
 const persistUserConfig = {
     key:'user',
     storage: AsyncStorage,
-    whitelist: ['user'],
+    whitelist: ['user', 'userExists', 'isAuthenticated'],
 }
 
 const persistUserReducer = persistReducer(persistUserConfig, UserReducer);
@@ -20,7 +20,7 @@ const store = configureStore({
      middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(thunk),
+    })
 });
 
 export const persistor = persistStore(store);

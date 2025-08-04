@@ -1,35 +1,53 @@
-import { CHECK_USER_EXIST_FAILURE, CHECK_USER_EXIST_REQUEST, CHECK_USER_EXIST_SUCCESS } from "../constants/Userconstant";
+import {
+  CHECK_USER_EXIST_FAILURE,
+  CHECK_USER_EXIST_REQUEST,
+  CHECK_USER_EXIST_SUCCESS,
+  REGISTER_USER_FAILURE,
+  REGISTER_USER_REQUEST,
+  REGISTER_USER_SUCCESS,
+} from '../constants/Userconstant';
 
 const initialState = {
   user: null,
   isAuthenticated: false,
-  userExists:null,
+  userExists: null,
   loading: false,
   error: null,
 };
 
-export const UserReducer= (state=initialState,action)=>{
-    switch(action.type){
-        case CHECK_USER_EXIST_REQUEST:
-            return{
-                ...state,
-                loading: true,
-                error: null,
-            }
+export const UserReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case CHECK_USER_EXIST_REQUEST:
+    case REGISTER_USER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
 
-        case CHECK_USER_EXIST_SUCCESS:
-            return{
-                ...state,
-                loading: false,
-                userExists: action.payload,
-                
-            }
-        case CHECK_USER_EXIST_FAILURE:
-            return{
-                ...state,
-                loading: false,
-                error: action.payload,
-            }
-    }
-    
-}
+    case CHECK_USER_EXIST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        userExists: action.payload,
+      };
+
+    case REGISTER_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isAuthenticated: false,
+        user: action.payload,
+      };
+    case CHECK_USER_EXIST_FAILURE:
+    case REGISTER_USER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};

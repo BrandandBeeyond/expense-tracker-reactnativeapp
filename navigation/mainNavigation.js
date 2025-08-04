@@ -30,7 +30,12 @@ export const MainNavigation = () => {
       <Stack.Screen
         name="PasswordScreen"
         component={PasswordScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerStyle: {
+            backgroundColor: '#17181c',
+          },
+          headerTitle: () => null,
+        }}
       />
       <Stack.Screen
         name="HomeScreen"
@@ -38,7 +43,11 @@ export const MainNavigation = () => {
         options={{ header: null }}
       />
       {showOnBoarding && (
-        <Stack.Screen name="OnboardingScreens" component={OnboardingScreens} options={{headerShown:false}}/>
+        <Stack.Screen
+          name="OnboardingScreens"
+          component={OnboardingScreens}
+          options={{ headerShown: false }}
+        />
       )}
     </Stack.Navigator>
   );

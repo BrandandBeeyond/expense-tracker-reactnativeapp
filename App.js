@@ -11,8 +11,8 @@ const App = () => {
   return (
     <SafeAreaProvider>
       <Provider store={store}>
-        <PersistGate>
-          <NavigationContainer persistor={persistor}>
+        <PersistGate persistor={persistor} loading={null}>
+          <NavigationContainer >
             <MainNavigation />
           </NavigationContainer>
         </PersistGate>
