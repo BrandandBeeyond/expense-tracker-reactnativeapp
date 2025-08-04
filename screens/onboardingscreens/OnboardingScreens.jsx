@@ -11,11 +11,13 @@ import {
 } from '../../assets/styles/Scaling';
 import LottieView from 'lottie-react-native';
 import { RegisterNewUser } from '../../redux/actions/UserAction';
+import { useDispatch } from 'react-redux';
 
 const OnboardingScreens = ({ navigation, route }) => {
+  const dispatch = useDispatch();
   const [budget, setBudget] = useState('');
   const [loading, setLoading] = useState(false);
-   const [passwordShow, setPasswordShow] = useState(false);
+  const [passwordShow, setPasswordShow] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const onBoardingRef = useRef();
@@ -28,7 +30,7 @@ const OnboardingScreens = ({ navigation, route }) => {
     password: '',
   });
 
-  const handlePreRegister = () => {
+  const handlePreRegister = async () => {
     const { name, mobile, gender, password } = formData;
 
     if (!name || !mobile || !gender || !password) {
@@ -36,22 +38,33 @@ const OnboardingScreens = ({ navigation, route }) => {
       return;
     }
 
-    setLoading(true);
     try {
-      setTimeout(() => {
-        setLoading(false);
-        RegisterNewUser(name, email, mobile, gender, password);
-        onBoardingRef.current.goToPage(1, true);
-      }, 1000);
+      setLoading(true);
+      await AsyncStorage.setItem(
+        'onboardFormData',
+        JSON.stringify({ name, mobile, gender }),
+      );
+      onBoardingRef.current.goToPage(1, true);
     } catch (error) {
-      setLoading(false);
       Alert.alert('Registration Failed', error.message || 'Please try again');
+    }finally{
+      setLoading(false);
     }
   };
 
   const handleFinish = async () => {
-    await AsyncStorage.setItem('hasOnBoarded', 'true');
-    await AsyncStorage.setItem('monthlyBudget', budget);
+    try {
+      const { name, mobile, gender, password } = formData;
+
+      await dispatch(RegisterNewUser({name,email,mobile,gender,password}));
+
+      navigation.replace('HomeScreen')
+
+    } catch (error) {
+      Alert.alert('Registration Failed', error.message || 'Please try again');
+
+    }
+   
 
     console.log('navigate to home');
   };
@@ -148,7 +161,7 @@ const OnboardingScreens = ({ navigation, route }) => {
                   <RadioButton.Group
                     value={formData.gender}
                     onValueChange={value =>
-                      setFormData({ formData, gender: value })
+                      setFormData({ ...formData, gender: value })
                     }
                   >
                     <View style={{ flexDirection: 'row', gap: '20' }}>
@@ -174,7 +187,8 @@ const OnboardingScreens = ({ navigation, route }) => {
                   mode="outlined"
                   value={formData.password}
                   onChangeText={text =>
-                    setFormData({ ...formData, password: text })}
+                    setFormData({ ...formData, password: text })
+                  }
                   underlineColor="transparent"
                   right={
                     <TextInput.Icon
