@@ -3,6 +3,9 @@ import {
   CHECK_USER_EXIST_FAILURE,
   CHECK_USER_EXIST_REQUEST,
   CHECK_USER_EXIST_SUCCESS,
+  LOGIN_USER_FAILURE,
+  LOGIN_USER_REQUEST,
+  LOGIN_USER_SUCCESS,
   REGISTER_USER_FAILURE,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
@@ -64,6 +67,39 @@ export const RegisterNewUser =
     } catch (error) {
       dispatch({
         type: REGISTER_USER_FAILURE,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+      throw new Error(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+      );
+    }
+  };
+
+export const LoginUser =
+  ({ email, password }) =>
+  async dispatch => {
+    try {
+      dispatch({ type: LOGIN_USER_REQUEST });
+
+      const { data } = await axios.post(`${SERVER_API}/user/login`, {
+        email,
+        password,
+      });
+
+      AsyncStorage.setItem('authToken', data.token);
+
+      dispatch({
+        type: LOGIN_USER_SUCCESS,
+        payload: data.user,
+      });
+    } catch (error) {
+      dispatch({
+        type: LOGIN_USER_FAILURE,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

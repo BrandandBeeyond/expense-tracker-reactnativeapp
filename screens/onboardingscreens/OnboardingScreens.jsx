@@ -284,16 +284,19 @@ const styles = StyleSheet.create({
     fontSize: scaleFontSize(18),
     textAlign: 'center',
     marginBottom: verticalScale(10),
+     fontFamily:'Lato'
   },
   smallText: {
     fontSize: scaleFontSize(15),
     lineHeight: verticalScale(21),
     marginBottom: verticalScale(10),
+     fontFamily:'Lato'
   },
   normalText: {
     fontSize: scaleFontSize(16),
     lineHeight: verticalScale(22),
     marginBottom: verticalScale(10),
+     fontFamily:'Lato'
   },
 });
 

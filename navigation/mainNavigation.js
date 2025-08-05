@@ -40,7 +40,7 @@ export const MainNavigation = () => {
       <Stack.Screen
         name="HomeScreen"
         component={HomeScreen}
-        options={{ header: null }}
+        options={{headerShown:false}}
       />
       {showOnBoarding && (
         <Stack.Screen

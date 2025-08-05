@@ -12,6 +12,9 @@ export const globalStyle = StyleSheet.create({
   bgdark: {
     backgroundColor: '#17181c',
   },
+  bgWhite: {
+    backgroundColor: '#ffffff',
+  },
   px20: {
     paddingHorizontal: horizontalScale(20),
   },
@@ -30,7 +33,7 @@ export const globalStyle = StyleSheet.create({
   mt10: {
     marginTop: verticalScale(10),
   },
-  mt15:{
+  mt15: {
     marginTop: verticalScale(15),
   },
   mt20: {
@@ -42,8 +45,8 @@ export const globalStyle = StyleSheet.create({
   mt40: {
     marginTop: verticalScale(40),
   },
-  mt100:{
-     marginTop:verticalScale(100)
+  mt100: {
+    marginTop: verticalScale(100),
   },
   mb20: {
     marginBottom: verticalScale(20),
@@ -102,9 +105,9 @@ export const globalStyle = StyleSheet.create({
     borderWidth: horizontalScale(0),
   },
   budgetInput: {
-    backgroundColor:'#7de683ff',
+    backgroundColor: '#7de683ff',
     width: Dimensions.get('window').width - 40,
-    borderColor:'#8ae38eff',
+    borderColor: '#8ae38eff',
     color: '#ffffff',
     borderRadius: horizontalScale(15),
     borderWidth: horizontalScale(0),
@@ -114,19 +117,36 @@ export const globalStyle = StyleSheet.create({
   },
   signgoogle: {
     borderWidth: 1,
-    backgroundColor:'#ffffff',
+    backgroundColor: '#ffffff',
     justifyContent: 'center',
     padding: horizontalScale(10),
     borderRadius: horizontalScale(10),
   },
-  drow:{
-    display:'flex',
-    flexDirection:'row'
+  drow: {
+    display: 'flex',
+    flexDirection: 'row',
   },
-  cg5:{
-    gap:horizontalScale(10)
+  dcol: {
+    display: 'flex',
+    flexDirection: 'column',
   },
-  textMain:{
-    color:'#e76a3d'
-  }
+  dcolend: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
+  cg5: {
+    gap: horizontalScale(10),
+  },
+  textMain: {
+    color: '#e76a3d',
+  },
+  textSmall: {
+    fontSize: scaleFontSize(13),
+    fontWeight: '600',
+  },
+  textxSmall: {
+    fontSize: scaleFontSize(11),
+    fontWeight: '400',
+  },
 });

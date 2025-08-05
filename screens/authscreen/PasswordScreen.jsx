@@ -1,10 +1,44 @@
 import React, { useState } from 'react';
 import { globalStyle } from '../../assets/styles/gloabalStyle';
-import { SafeAreaView, Text, View } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import {
+  ActivityIndicator,
+  Alert,
+  SafeAreaView,
+  Text,
+  View,
+} from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
 import { scaleFontSize } from '../../assets/styles/Scaling';
+import { LoginUser } from '../../redux/actions/UserAction';
+import { useDispatch } from 'react-redux';
 
-const PasswordScreen = () => {
+const PasswordScreen = ({ navigation, route }) => {
+  const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
+
+  const { email } = route.params || {};
+  const [password, setPassword] = useState('');
+
+ const handleLogin = async () => {
+  console.log("Email:", email);
+  console.log("Password:", password);
+
+  if (!email || !password) {
+    Alert.alert('Missing Fields', 'Email or password is missing');
+    return;
+  }
+
+  setLoading(true);
+  try {
+    await dispatch(LoginUser({email, password}));
+    navigation.replace('HomeScreen');
+  } catch (error) {
+    Alert.alert('Login Failed', error.message || 'Please try again');
+  } finally {
+    setLoading(false);
+  }
+};
   const [passwordShow, setPasswordShow] = useState(false);
   return (
     <SafeAreaView
@@ -41,6 +75,8 @@ const PasswordScreen = () => {
             <TextInput
               label="Password"
               secureTextEntry={!passwordShow}
+              value={password}
+              onChangeText={text => setPassword(text)}
               mode="outlined"
               underlineColor="transparent"
               right={
@@ -74,6 +110,27 @@ const PasswordScreen = () => {
           >
             Forgot Password ?
           </Text>
+        </View>
+
+        <View style={globalStyle.mt40}>
+          <Button
+            mode="contained"
+            style={[
+              globalStyle.py5,
+              globalStyle.rounded2,
+              globalStyle.fs4,
+              {
+                backgroundColor: '#e76a3d',
+              },
+            ]}
+            onPress={handleLogin}
+          >
+            {loading ? (
+              <ActivityIndicator color={'#ffffff'} size={20} />
+            ) : (
+              'Login'
+            )}
+          </Button>
         </View>
       </View>
     </SafeAreaView>
