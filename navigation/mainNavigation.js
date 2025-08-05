@@ -9,19 +9,28 @@ import PasswordScreen from '../screens/authscreen/PasswordScreen';
 const Stack = createStackNavigator();
 
 export const MainNavigation = () => {
-  const [showOnBoarding, setShowOnBoarding] = useState(null);
+ 
 
-  useEffect(() => {
-    const checkOnBoarding = async () => {
-      const onboarded = await AsyncStorage.getItem('hasOnboarded');
-      setShowOnBoarding(onboarded === null);
-    };
-    checkOnBoarding();
-  }, []);
+  const [initialRoute, setInitialRoute] = useState(null);
 
-  if (showOnBoarding === null) return null;
+  useEffect(()=>{
+      const checkAppState = async()=>{
+        const token = await AsyncStorage.getItem('authToken');
+        
+        if(token){
+          setInitialRoute('HomeScreen');
+        } else {
+          setInitialRoute('AuthScreen');
+        }
+      };
+
+      checkAppState();
+  },[]); 
+
+  if (initialRoute === null) return null;
+
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName={initialRoute}>
       <Stack.Screen
         name="AuthScreen"
         component={AuthScreen}
@@ -42,13 +51,13 @@ export const MainNavigation = () => {
         component={HomeScreen}
         options={{headerShown:false}}
       />
-      {showOnBoarding && (
+     
         <Stack.Screen
           name="OnboardingScreens"
           component={OnboardingScreens}
           options={{ headerShown: false }}
         />
-      )}
+      
     </Stack.Navigator>
   );
 };

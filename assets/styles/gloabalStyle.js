@@ -96,6 +96,9 @@ export const globalStyle = StyleSheet.create({
   justifycenter: {
     justifyContent: 'center',
   },
+  fwbold:{
+    fontWeight: '700',
+  },
 
   authInput: {
     backgroundColor: '#22252c',
