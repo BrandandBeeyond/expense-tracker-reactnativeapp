@@ -22,8 +22,13 @@ export const HomeStyle = StyleSheet.create({
     },
     expenseTitles:{
          fontSize:scaleFontSize(15),
-         fontWeight:'600',
          color:'#010101',
         fontFamily:'Lato'
+    },
+    hrOrange:{
+        height:verticalScale(1.5),
+        width:'100%',
+        backgroundColor:'#ffbb5f',
+        marginVertical:verticalScale(16)
     }
 })

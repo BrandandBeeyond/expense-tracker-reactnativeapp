@@ -96,8 +96,14 @@ export const globalStyle = StyleSheet.create({
   justifycenter: {
     justifyContent: 'center',
   },
+  justifyBtn:{
+    justifyContent:'space-between'
+  },
   fwbold:{
     fontWeight: '700',
+  },
+  fwsemibold:{
+    fontWeight: '650',
   },
 
   authInput: {
@@ -147,9 +153,11 @@ export const globalStyle = StyleSheet.create({
   textSmall: {
     fontSize: scaleFontSize(13),
     fontWeight: '600',
+    fontFamily: 'Lato',
   },
   textxSmall: {
     fontSize: scaleFontSize(11),
     fontWeight: '400',
+    fontFamily: 'Lato',
   },
 });
