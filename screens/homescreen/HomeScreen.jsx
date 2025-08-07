@@ -20,7 +20,7 @@ const HomeScreen = ({ navigation }) => {
               <Text style={[HomeStyle.expenseTitles, globalStyle.fwsemibold]}>
                 Expenses
               </Text>
-              <Text style={HomeStyle.expenseTitles}>1000</Text>
+              <Text style={HomeStyle.expenseTitles}>₹ 1000</Text>
             </View>
             <View style={HomeStyle.br}></View>
             <View
