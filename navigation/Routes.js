@@ -6,4 +6,5 @@ export const Routes = {
   AnalysisScreen: 'AnalysisScreen',
   MoreDetail: 'MoreDetail',
   Reports: 'Reports',
+  AddTransaction: 'AddTransaction',
 };

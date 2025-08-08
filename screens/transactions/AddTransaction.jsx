@@ -1,12 +1,17 @@
-import React from 'react'
-import { SafeAreaView, View } from 'react-native'
+import React, { useState } from 'react';
+import { SafeAreaView, Text, View } from 'react-native';
+import { globalStyle } from '../../assets/styles/gloabalStyle';
+import Transactiontabs from '../../components/toptabs/Transactiontabs';
+
 
 const AddTransaction = () => {
-  return (
-    <SafeAreaView>
-        <View>Add Transaction</View>
-    </SafeAreaView>
-  )
-}
 
-export default AddTransaction
+
+  return (
+    <SafeAreaView style={[globalStyle.flex, globalStyle.bgWhite]}>
+        <Transactiontabs />
+    </SafeAreaView>
+  );
+};
+
+export default AddTransaction;

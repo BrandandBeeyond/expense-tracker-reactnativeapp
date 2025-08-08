@@ -62,11 +62,8 @@ const OnboardingScreens = ({ navigation, route }) => {
 
     } catch (error) {
       Alert.alert('Registration Failed', error.message || 'Please try again');
-
     }
    
-
-    console.log('navigate to home');
   };
 
   return (

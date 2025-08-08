@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreens from '../screens/onboardingscreens/OnboardingScreens';
 import PasswordScreen from '../screens/authscreen/PasswordScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -15,25 +15,30 @@ import AnalysisScreen from '../screens/analysisscreen/AnalysisScreen';
 import MoreDetail from '../screens/moredetail/MoreDetail';
 import Reports from '../screens/reports/Reports';
 import AddTransaction from '../screens/transactions/AddTransaction';
-import { horizontalScale, verticalScale } from '../assets/styles/Scaling';
+import CustomTabbarButton from '../components/custombutton/CustomTabbarButton';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import { scaleFontSize } from '../assets/styles/Scaling';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-
-const CustomTabBarButton=({children,onPress})=>(
-   <TouchableOpacity style={styles.fabContainer} onPress={onPress}>
-        <View style={styles.fab}>{children}</View>
-   </TouchableOpacity>
-)
+const CustomBackButton = ({ navigation }) => {
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.goBack()}
+      style={{ marginRight: 20, marginLeft: 10 }}
+    >
+      <FontAwesome6 name="arrow-left-long" color={'#000000'} size={20} />
+    </TouchableOpacity>
+  );
+};
 
 const HomeTabs = () => (
   <Tab.Navigator
     screenOptions={{
       tabBarShowLabel: true,
       tabBarStyle: styles.tabBar,
-      headerShown: false,
-      tabBarActiveTintColor:'#ffbb5f',
+      tabBarActiveTintColor: '#ffbb5f',
     }}
   >
     <Tab.Screen
@@ -43,6 +48,7 @@ const HomeTabs = () => (
         tabBarIcon: ({ color, size }) => (
           <Feather name="home" color={color} size={24} />
         ),
+        headerShown: false,
       }}
     />
     <Tab.Screen
@@ -55,26 +61,24 @@ const HomeTabs = () => (
       }}
     />
     <Tab.Screen
-      name="Add"
+      name="AddTransaction"
       component={AddTransaction}
-      options={{
-        tabBarLabel:'',
-        tabBarIcon:({focused})=>(
-          <Feather name="plus" color={'#000000'} size={24} />
-        ),
-        tabBarButton:props=> <CustomTabBarButton {...props}/>
-      }}
+      options={({ navigation }) => ({
+        tabBarLabel: '',
+        tabBarIcon: () => null,
+        headerTitle: 'Add Transaction',
+        headerTitleStyle:{fontSize:scaleFontSize(17)},
+        tabBarStyle: { display: 'none' },
+        headerLeft: () => <CustomBackButton navigation={navigation} />,
+        tabBarButton: props => <CustomTabbarButton {...props} />,
+      })}
     />
     <Tab.Screen
       name="Reports"
       component={Reports}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <SimpleLineIcons
-            name="notebook"
-            color={color}
-            size={24}
-          />
+          <SimpleLineIcons name="notebook" color={color} size={24} />
         ),
       }}
     />
@@ -155,21 +159,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#f1eeedff',
     borderTopWidth: 0,
     elevation: 10,
-  },
-  fabContainer: {
-    top: -30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  fab: {
-    width: horizontalScale(50),
-    height: verticalScale(43),
-    borderRadius: horizontalScale(100),
-    backgroundColor: '#ffbb5f',
-    display:'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 5,
-    paddingTop:verticalScale(10)
   },
 });
