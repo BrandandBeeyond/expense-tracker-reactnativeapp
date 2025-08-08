@@ -11,7 +11,7 @@ const Expense = () => {
   return (
     <View style={[globalStyle.bgWhite, globalStyle.flex]}>
       <View style={[globalStyle.mt30]}>
-           <DatePicker/>
+           {/* <DatePicker/> */}
       </View>
     </View>
   );

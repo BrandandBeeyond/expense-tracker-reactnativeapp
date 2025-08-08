@@ -2,27 +2,30 @@ import React, { useState } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
-const CalenderModal = () => {
-
-
-
-  return(
-    <Modal transparent visible={calenderVisible} animationType="slide" onRequestClose={()=>setCalenderVisible(false)}>
-         <View style={styles.modalContainer}>
-              <View style={styles.calendarWrapper}>
-                  <Calendar onDayPress={(day)=>{
-
-                  }}/>
-              </View>
-         </View>
+const CalenderModal = ({ visible, hideModal, onSelectDate }) => {
+  return (
+    <Modal
+      transparent
+      visible={visible}
+      animationType="slide"
+      onRequestClose={hideModal}
+    >
+      <View style={styles.modalContainer}>
+        <View style={styles.calendarWrapper}>
+          <Calendar
+            onDayPress={day => {
+              onSelectDate(day);
+              hideModal();
+            }}
+            style={{ borderRadius: 10 }}
+          />
+        </View>
+      </View>
     </Modal>
   );
 };
 
-
-
 export default CalenderModal;
-
 
 const styles = StyleSheet.create({
   modalContainer: {
