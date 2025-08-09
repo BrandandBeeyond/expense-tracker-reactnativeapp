@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import CalenderModal from './CalenderModal';
+import { globalStyle } from '../../assets/styles/gloabalStyle';
+
 
 const DatePicker = () => {
   const [calenderVisible, setCalenderVisible] = useState(false);
@@ -26,12 +28,19 @@ const DatePicker = () => {
     setSelectedDate(formatted);
   }, []);
 
-
-  
   return (
     <>
       <TouchableOpacity onPress={showCalenderModal}>
-        <TextInput label="Select Date" value={selectedDate} editable={false} />
+        <TextInput
+          label="Select Date"
+          value={selectedDate}
+          editable={false}
+          style={globalStyle.transactionInput}
+          underlineColor="transparent"
+          left={
+            <TextInput.Icon icon="calendar" style={{backgroundColor:'#FFFFFF'}}/>
+          }
+        />
       </TouchableOpacity>
 
       <CalenderModal

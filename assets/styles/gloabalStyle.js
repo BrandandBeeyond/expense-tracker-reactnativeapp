@@ -96,13 +96,13 @@ export const globalStyle = StyleSheet.create({
   justifycenter: {
     justifyContent: 'center',
   },
-  justifyBtn:{
-    justifyContent:'space-between'
+  justifyBtn: {
+    justifyContent: 'space-between',
   },
-  fwbold:{
+  fwbold: {
     fontWeight: '700',
   },
-  fwsemibold:{
+  fwsemibold: {
     fontWeight: '650',
   },
 
@@ -159,5 +159,12 @@ export const globalStyle = StyleSheet.create({
     fontSize: scaleFontSize(11),
     fontWeight: '400',
     fontFamily: 'Lato',
+  },
+  transactionInput: {
+    backgroundColor: '#ffe9ba',
+    height: verticalScale(40),
+    borderRadius: horizontalScale(15),
+    borderWidth: horizontalScale(0),
+    width: Dimensions.get('window').width - 40,
   },
 });
