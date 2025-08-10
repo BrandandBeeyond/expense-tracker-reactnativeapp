@@ -162,9 +162,23 @@ export const globalStyle = StyleSheet.create({
   },
   transactionInput: {
     backgroundColor: '#ffe9ba',
-    height: verticalScale(40),
+    height: verticalScale(42),
     borderRadius: horizontalScale(15),
+    borderTopLeftRadius:horizontalScale(15),
+    borderTopRightRadius:horizontalScale(15),
     borderWidth: horizontalScale(0),
+    fontSize: scaleFontSize(14),
     width: Dimensions.get('window').width - 40,
+  },
+  btmmodal:{
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  modalContent: {
+    backgroundColor: '#ffffff',
+    borderTopLeftRadius: horizontalScale(20),
+    borderTopRightRadius: horizontalScale(20),
+    padding: horizontalScale(20),
+    height: verticalScale(300),
   },
 });

@@ -1,62 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import CalenderModal from './CalenderModal';
 import { globalStyle } from '../../assets/styles/gloabalStyle';
-
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import ReactNativeModal from 'react-native-modal';
 
 const DatePicker = () => {
-  const [calenderVisible, setCalenderVisible] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
+  const [datePickerVisble, setDatePickerVisble] = useState(false);
+  const [selectDate, setSelectDate] = useState('');
 
-  const showCalenderModal = () => {
-    setCalenderVisible(true);
+
+  const showDatePicker = () => {
+    setDatePickerVisble(true);
   };
 
-  const hideCalederModal = () => {
-    setCalenderVisible(false);
+  const hideDatePicker = () => {
+    setDatePickerVisble(false);
   };
 
-  useEffect(() => {
-    const today = new Date();
-
-    const formatted = today.toLocaleDateString('en-GB', {
+  const handleConfirm = date => {
+    const formattedDate = date.toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
     });
-    setSelectedDate(formatted);
-  }, []);
+    setSelectDate(formattedDate);
+    hideDatePicker();
+  };
 
+  useEffect(() => {
+    const today = new Date();
+    const formattedToday = today.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
+    setSelectDate(formattedToday);
+  }, []);
+  // Initialize with today's date}
   return (
     <>
-      <TouchableOpacity onPress={showCalenderModal}>
+      <TouchableOpacity onPress={showDatePicker}>
         <TextInput
           label="Select Date"
-          value={selectedDate}
+          value={selectDate}
           editable={false}
           style={globalStyle.transactionInput}
           underlineColor="transparent"
           left={
-            <TextInput.Icon icon="calendar" style={{backgroundColor:'#FFFFFF'}}/>
+            <TextInput.Icon
+              icon="calendar"
+              style={{ backgroundColor: '#FFFFFF' }}
+            />
           }
         />
       </TouchableOpacity>
 
-      <CalenderModal
-        visible={calenderVisible}
-        hideModal={hideCalederModal}
-        onSelectDate={day => {
-          const dateObj = new Date(day.dateString);
+     
 
-          const formatted = dateObj.toLocaleDateString('en-GB', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric',
-          });
-          setSelectedDate(formatted);
-        }}
+      <DateTimePickerModal
+        mode="date"
+        isVisible={datePickerVisble}
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
       />
+      
     </>
   );
 };
