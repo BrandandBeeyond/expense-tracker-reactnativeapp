@@ -48,6 +48,9 @@ export const globalStyle = StyleSheet.create({
   mt100: {
     marginTop: verticalScale(100),
   },
+  mb10: {
+    marginBottom: verticalScale(10),
+  },
   mb20: {
     marginBottom: verticalScale(20),
   },
@@ -63,20 +66,41 @@ export const globalStyle = StyleSheet.create({
   mx10: {
     marginHorizontal: horizontalScale(10),
   },
+  p10: {
+    padding: horizontalScale(10),
+  },
+  p15: {
+    padding: horizontalScale(15),
+  },
+  px15: {
+    paddingHorizontal: horizontalScale(15),
+  },
   textcenter: {
     textAlign: 'center',
   },
   fs1: {
     fontSize: scaleFontSize(30),
+    fontFamily: 'Lato',
   },
   fs2: {
     fontSize: scaleFontSize(27),
+    fontFamily: 'Lato',
   },
   fs3: {
     fontSize: scaleFontSize(21),
+    fontFamily: 'Lato',
   },
   fs4: {
     fontSize: scaleFontSize(18),
+    fontFamily: 'Lato',
+  },
+  fs5: {
+    fontSize: scaleFontSize(15),
+    fontFamily: 'Lato',
+  },
+  fs6: {
+    fontSize: scaleFontSize(11),
+    fontFamily: 'Lato',
   },
   textWhite: {
     color: '#ffffff',
@@ -103,7 +127,7 @@ export const globalStyle = StyleSheet.create({
     fontWeight: '700',
   },
   fwsemibold: {
-    fontWeight: '650',
+    fontWeight: '690',
   },
 
   authInput: {
@@ -164,13 +188,13 @@ export const globalStyle = StyleSheet.create({
     backgroundColor: '#ffe9ba',
     height: verticalScale(42),
     borderRadius: horizontalScale(15),
-    borderTopLeftRadius:horizontalScale(15),
-    borderTopRightRadius:horizontalScale(15),
+    borderTopLeftRadius: horizontalScale(15),
+    borderTopRightRadius: horizontalScale(15),
     borderWidth: horizontalScale(0),
     fontSize: scaleFontSize(14),
     width: Dimensions.get('window').width - 40,
   },
-  btmmodal:{
+  btmmodal: {
     justifyContent: 'flex-end',
     margin: 0,
   },
@@ -178,7 +202,14 @@ export const globalStyle = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderTopLeftRadius: horizontalScale(20),
     borderTopRightRadius: horizontalScale(20),
-    padding: horizontalScale(20),
-    height: verticalScale(300),
+    height: verticalScale(380),
+    overflow: 'hidden',
+  },
+  modalContentBig: {
+    backgroundColor: '#ffffff',
+    borderTopLeftRadius: horizontalScale(20),
+    borderTopRightRadius: horizontalScale(20),
+    height: verticalScale(450),
+    overflow: 'hidden',
   },
 });

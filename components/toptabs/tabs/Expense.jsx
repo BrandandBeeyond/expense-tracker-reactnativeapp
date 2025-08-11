@@ -3,18 +3,10 @@ import { TouchableOpacity, View } from 'react-native';
 import { globalStyle } from '../../../assets/styles/gloabalStyle';
 import DatePicker from '../../calendermodal/DatePicker';
 import { TextInput } from 'react-native-paper';
-import ReactNativeModal from 'react-native-modal';
+import ExpenseCategoryModal from '../../expensecategory/ExpenseCategoryModal';
+import PayTypesModal from '../../paytype/PayTypesModal';
 
 const Expense = () => {
-  const [categoryModalVisible, setCategoryModalVisible] = useState(false);
-
-  const showCategoryModal = () => {
-    setCategoryModalVisible(true);
-  };
-
-  const hideCategoryModal = () => {
-    setCategoryModalVisible(false);
-  };
   return (
     <>
       <View style={[globalStyle.bgWhite, globalStyle.flex]}>
@@ -34,34 +26,11 @@ const Expense = () => {
               }
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={globalStyle.mt15}
-            onPress={showCategoryModal}
-          >
-            <TextInput
-              label="Select Category"
-              editable={false}
-              style={globalStyle.transactionInput}
-              underlineColor="transparent"
-              left={
-                <TextInput.Icon
-                  icon="format-list-bulleted"
-                  style={{ backgroundColor: '#FFFFFF' }}
-                />
-              }
-              right={<TextInput.Icon icon="chevron-right" />}
-            />
-          </TouchableOpacity>
+
+          <ExpenseCategoryModal />
+          <PayTypesModal />
         </View>
       </View>
-
-      <ReactNativeModal
-        isVisible={categoryModalVisible}
-        onBackdropPress={hideCategoryModal}
-        style={globalStyle.btmmodal}
-      >
-        <View style={globalStyle.modalContent}></View>
-      </ReactNativeModal>
     </>
   );
 };
