@@ -194,6 +194,16 @@ export const globalStyle = StyleSheet.create({
     fontSize: scaleFontSize(14),
     width: Dimensions.get('window').width - 40,
   },
+  calenderInput: {
+    backgroundColor: '#ffe9ba',
+    height: verticalScale(42),
+    borderRadius: horizontalScale(15),
+    borderTopLeftRadius: horizontalScale(15),
+    borderTopRightRadius: horizontalScale(15),
+    borderWidth: horizontalScale(0),
+    fontSize: scaleFontSize(14),
+    width: Dimensions.get('window').width - 225,
+  },
   transactionInputBig: {
     backgroundColor: '#ffe9ba',
     height: verticalScale(59),

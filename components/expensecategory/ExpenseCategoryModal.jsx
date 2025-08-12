@@ -15,8 +15,6 @@ import { fetchExpenseCategories } from '../../redux/actions/ExpenseCategoryActio
 import { useDispatch, useSelector } from 'react-redux';
 import {
   horizontalScale,
-  scaleFontSize,
-  verticalScale,
 } from '../../assets/styles/Scaling';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 

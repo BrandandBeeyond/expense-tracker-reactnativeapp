@@ -3,7 +3,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { globalStyle } from '../../assets/styles/gloabalStyle';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import ReactNativeModal from 'react-native-modal';
+
 
 const DatePicker = () => {
   const [datePickerVisble, setDatePickerVisble] = useState(false);
@@ -45,7 +45,7 @@ const DatePicker = () => {
           label="Select Date"
           value={selectDate}
           editable={false}
-          style={globalStyle.transactionInput}
+          style={globalStyle.calenderInput}
           underlineColor="transparent"
           left={
             <TextInput.Icon

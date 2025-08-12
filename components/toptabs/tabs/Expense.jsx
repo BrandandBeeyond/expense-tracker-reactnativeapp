@@ -1,21 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { globalStyle } from '../../../assets/styles/gloabalStyle';
 import DatePicker from '../../calendermodal/DatePicker';
 import { Button, TextInput } from 'react-native-paper';
 import ExpenseCategoryModal from '../../expensecategory/ExpenseCategoryModal';
 import PayTypesModal from '../../paytype/PayTypesModal';
+import TimePicker from '../../calendermodal/TimePicker';
 
 const Expense = () => {
   return (
     <>
       <View style={[globalStyle.bgWhite, globalStyle.flex]}>
         <View style={[globalStyle.mt30]}>
-          <DatePicker />
+          <View
+            style={[
+              globalStyle.drow,
+              globalStyle.aligncenter,
+              globalStyle.cg5
+            ]}
+          >
+            <DatePicker />
+            <TimePicker />
+          </View>
 
           <TouchableOpacity style={globalStyle.mt15}>
             <TextInput
               label="Amount"
+              activeUnderlineColor="#ffbb5f"
               style={globalStyle.transactionInput}
               underlineColor="transparent"
               left={
@@ -35,22 +46,10 @@ const Expense = () => {
               label="Add short Note"
               style={globalStyle.transactionInputBig}
               underlineColor="transparent"
+              activeUnderlineColor="#ffbb5f"
               left={
                 <TextInput.Icon
                   icon="note"
-                  style={{ backgroundColor: '#FFFFFF' }}
-                />
-              }
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={globalStyle.mt15}>
-            <TextInput
-              label="Add invoice"
-              style={globalStyle.transactionInput}
-              underlineColor="transparent"
-              left={
-                <TextInput.Icon
-                  icon="invoice"
                   style={{ backgroundColor: '#FFFFFF' }}
                 />
               }
@@ -66,13 +65,11 @@ const Expense = () => {
               globalStyle.fs4,
               globalStyle.textcenter,
               {
-                backgroundColor:'#ffbb5f'
+                backgroundColor: '#ffbb5f',
               },
             ]}
           >
-            <Text style={globalStyle.textWhite}>
-            Add Transaction
-            </Text>
+            <Text style={globalStyle.textWhite}>Add Transaction</Text>
           </Button>
         </View>
       </View>
