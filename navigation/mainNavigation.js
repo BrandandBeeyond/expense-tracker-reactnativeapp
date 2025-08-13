@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreens from '../screens/onboardingscreens/OnboardingScreens';
 import PasswordScreen from '../screens/authscreen/PasswordScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -17,7 +17,7 @@ import Reports from '../screens/reports/Reports';
 import AddTransaction from '../screens/transactions/AddTransaction';
 import CustomTabbarButton from '../components/custombutton/CustomTabbarButton';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import { scaleFontSize } from '../assets/styles/Scaling';
+import { horizontalScale, scaleFontSize, verticalScale } from '../assets/styles/Scaling';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -39,6 +39,7 @@ const HomeTabs = () => (
       tabBarShowLabel: true,
       tabBarStyle: styles.tabBar,
       tabBarActiveTintColor: '#ffbb5f',
+      
     }}
   >
     <Tab.Screen
@@ -156,8 +157,13 @@ const styles = StyleSheet.create({
     height: 65,
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: '#f1eeedff',
+    backgroundColor: '#0d0f1b',
     borderTopWidth: 0,
-    elevation: 10,
+    bottom:verticalScale(30),
+    elevation: 3,
+    borderRadius:horizontalScale(100),
+    paddingTop:verticalScale(5),
+    paddingHorizontal:horizontalScale(10),
+    marginHorizontal: horizontalScale(20),
   },
 });
