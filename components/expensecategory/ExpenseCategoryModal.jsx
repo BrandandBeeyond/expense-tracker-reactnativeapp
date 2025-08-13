@@ -13,14 +13,13 @@ import { Button, TextInput } from 'react-native-paper';
 import ReactNativeModal from 'react-native-modal';
 import { fetchExpenseCategories } from '../../redux/actions/ExpenseCategoryAction';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  horizontalScale,
-} from '../../assets/styles/Scaling';
+import { horizontalScale } from '../../assets/styles/Scaling';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const ExpenseCategoryModal = () => {
   const dispatch = useDispatch();
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
+  const [selectExpenseCategory, setSelectExpenseCategory] = useState(null);
   const { expenseCategories, loading } = useSelector(state => state.expenses);
 
   const showCategoryModal = () => {
@@ -31,14 +30,30 @@ const ExpenseCategoryModal = () => {
     setCategoryModalVisible(false);
   };
 
+  const handleSelectCategory = category => {
+    setSelectExpenseCategory(category);
+    hideCategoryModal();
+  };
+
   useEffect(() => {
     if (categoryModalVisible) {
       dispatch(fetchExpenseCategories());
     }
   }, [categoryModalVisible, dispatch]);
 
+  const expenseOnly = expenseCategories.filter(
+    cat => cat.transactionType === 'Expense',
+  );
+
+  const groupedData = {
+    Basic: expenseOnly.filter(cat => cat.categoryType === 'Basic'),
+    Enjoyment: expenseOnly.filter(cat => cat.categoryType === 'Enjoyment'),
+    Healthcare: expenseOnly.filter(cat => cat.categoryType === 'Health & Care'),
+  };
+
   const renderCategoryItem = ({ item }) => (
     <TouchableOpacity
+      onPress={() => handleSelectCategory(item)}
       style={{
         flexDirection: 'column',
         alignItems: 'center',
@@ -57,25 +72,17 @@ const ExpenseCategoryModal = () => {
         <Image
           source={{ uri: item.icon.url }}
           style={{
-            width: 25,
-            height: 25,
+            width: 30,
+            height: 30,
           }}
         />
       </View>
 
-      <Text style={[globalStyle.fs6, globalStyle.mt5]}>{item.name}</Text>
+      <Text style={[globalStyle.fs6, globalStyle.mt5, { fontWeight: '600' }]}>
+        {item.name}
+      </Text>
     </TouchableOpacity>
   );
-
-  const groupedData = {
-    Basic: expenseCategories.filter(cat => cat.categoryType === 'Basic'),
-    Enjoyment: expenseCategories.filter(
-      cat => cat.categoryType === 'Enjoyment',
-    ),
-    Healthcare: expenseCategories.filter(
-      cat => cat.categoryType === 'Healthcare',
-    ),
-  };
 
   return (
     <>
@@ -83,6 +90,7 @@ const ExpenseCategoryModal = () => {
         <TextInput
           label="Select Category"
           editable={false}
+          value={selectExpenseCategory ? selectExpenseCategory.name : ''}
           style={globalStyle.transactionInput}
           underlineColor="transparent"
           left={
@@ -118,7 +126,7 @@ const ExpenseCategoryModal = () => {
                 Choose Category
               </Text>
               <Pressable onPress={hideCategoryModal}>
-                <AntDesign name="close" size={20}  color={'#000000'} />
+                <AntDesign name="close" size={20} color={'#000000'} />
               </Pressable>
             </View>
             {loading ? (
@@ -135,7 +143,7 @@ const ExpenseCategoryModal = () => {
                     <Text
                       style={[
                         globalStyle.fs5,
-                        globalStyle.fwsemibold,
+                        globalStyle.fwbold,
                         globalStyle.mb10,
                       ]}
                     >

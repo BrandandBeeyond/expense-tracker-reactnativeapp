@@ -99,7 +99,7 @@ export const globalStyle = StyleSheet.create({
     fontFamily: 'Lato',
   },
   fs6: {
-    fontSize: scaleFontSize(11),
+    fontSize: scaleFontSize(12),
     fontFamily: 'Lato',
   },
   textWhite: {
@@ -222,7 +222,8 @@ export const globalStyle = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderTopLeftRadius: horizontalScale(20),
     borderTopRightRadius: horizontalScale(20),
-    height: verticalScale(380),
+    minHeight: verticalScale(350),
+    maxHeight: verticalScale(440),
     overflow: 'hidden',
   },
   modalContentBig: {

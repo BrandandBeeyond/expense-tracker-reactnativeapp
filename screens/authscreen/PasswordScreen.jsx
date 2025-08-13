@@ -32,7 +32,7 @@ const PasswordScreen = ({ navigation, route }) => {
   setLoading(true);
   try {
     await dispatch(LoginUser({email, password}));
-    navigation.replace('BottomTabs');
+    navigation.replace('HomeTabs');
   } catch (error) {
     Alert.alert('Login Failed', error.message || 'Please try again');
   } finally {
