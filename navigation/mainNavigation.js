@@ -47,7 +47,7 @@ const HomeTabs = () => (
       component={HomeScreen}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <Feather name="home" color={color} size={24} />
+          <Feather name="home" color={color} size={20} />
         ),
         headerShown: false,
       }}
@@ -57,7 +57,7 @@ const HomeTabs = () => (
       component={AnalysisScreen}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <Ionicons name="analytics-outline" color={color} size={24} />
+          <Ionicons name="analytics-outline" color={color} size={20} />
         ),
       }}
     />
@@ -79,7 +79,7 @@ const HomeTabs = () => (
       component={Reports}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <SimpleLineIcons name="notebook" color={color} size={24} />
+          <SimpleLineIcons name="notebook" color={color} size={20} />
         ),
       }}
     />
@@ -88,7 +88,7 @@ const HomeTabs = () => (
       component={MoreDetail}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <Entypo name="dots-three-horizontal" color={color} size={24} />
+          <Entypo name="dots-three-horizontal" color={color} size={20} />
         ),
       }}
     />

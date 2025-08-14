@@ -1,52 +1,38 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Text } from 'react-native';
 import { Appbar, Avatar } from 'react-native-paper';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { globalStyle } from '../../assets/styles/gloabalStyle';
-import { scaleFontSize } from '../../assets/styles/Scaling';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import { scaleFontSize, verticalScale } from '../../assets/styles/Scaling';
 
-const UserAvatar = () => (
-  <Avatar.Icon
-    size={46}
-    color={'#4e4e4eff'}
-    icon={({ color, size }) => (
-      <Ionicons name="person-circle-outline" color={color} size={size} />
-    )}
-    style={{ backgroundColor: 'transparent' }}
-  />
-);
+
 
 const Topbar = () => {
   return (
     <SafeAreaView>
       <Appbar.Header style={styles.header}>
-        {/* Menu Icon */}
+       
         <Appbar.Action
-          icon={({ color, size }) => (
-            <MaterialCommunityIcons name="menu" size={size} color={color} />
+          icon={({ size }) => (
+             <Avatar.Image size={30} source={require('../../assets/images/icons/avatar.png')}/>
           )}
           onPress={() => {}}
         />
 
-        {/* Title in Center */}
+      
         <View style={styles.titleWrapper}>
           <Text style={styles.title}>Home</Text>
         </View>
 
-        {/* Right Icons */}
+      
         <View style={styles.actionsWrapper}>
           <Appbar.Action
             icon={({ color, size }) => (
-              <MaterialCommunityIcons name="magnify" size={size} color={color} />
+              <EvilIcons name="search" size={30} color={color} />
             )}
             onPress={() => {}}
           />
 
-          {/* Use TouchableOpacity to wrap the Avatar */}
-          <TouchableOpacity onPress={() => {}} style={styles.avatarWrapper}>
-            <UserAvatar />
-          </TouchableOpacity>
+          
         </View>
       </Appbar.Header>
     </SafeAreaView>
@@ -58,6 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     position: 'relative',
+    height:verticalScale(60),
   },
   titleWrapper: {
     position: 'absolute',
