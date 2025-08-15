@@ -89,6 +89,12 @@ const HomeScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={HomeStyle.hrOrange}></View>
+
+        <View style={[globalStyle.mt15]}>
+            <View style={[HomeStyle.budgetBoxSet,globalStyle.mx10]}>
+
+            </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

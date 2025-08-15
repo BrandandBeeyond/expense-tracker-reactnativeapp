@@ -6,7 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreens from '../screens/onboardingscreens/OnboardingScreens';
 import PasswordScreen from '../screens/authscreen/PasswordScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
+import { createDrawerNavigator  } from '@react-navigation/drawer';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -22,6 +23,7 @@ import { horizontalScale, scaleFontSize, verticalScale } from '../assets/styles/
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+
 const CustomBackButton = ({ navigation }) => {
   return (
     <TouchableOpacity
@@ -32,6 +34,9 @@ const CustomBackButton = ({ navigation }) => {
     </TouchableOpacity>
   );
 };
+
+
+
 
 const HomeTabs = () => (
   <Tab.Navigator
@@ -94,6 +99,9 @@ const HomeTabs = () => (
     />
   </Tab.Navigator>
 );
+
+
+
 
 export const MainNavigation = () => {
   const [initialRoute, setInitialRoute] = useState(null);
