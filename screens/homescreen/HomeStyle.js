@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import {
   horizontalScale,
   scaleFontSize,
@@ -21,12 +21,13 @@ export const HomeStyle = StyleSheet.create({
     borderRadius: horizontalScale(20),
   },
   budgetBoxSet: {
-    height: verticalScale(100),
-    width: '100%',
-    backgroundColor: '#fbd59fff',
+    height: verticalScale(110),
+    width:Dimensions.get('window').width - horizontalScale(20),
+    backgroundColor: '#eeeeecff',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     borderRadius: horizontalScale(10),
   },
   tabReal: {
@@ -44,4 +45,9 @@ export const HomeStyle = StyleSheet.create({
     backgroundColor: '#ffbb5f',
     marginVertical: verticalScale(16),
   },
+  normalBtn:{
+    width: horizontalScale(130),
+    marginTop:verticalScale(10),
+    fontFamily: 'Lato',
+  }
 });

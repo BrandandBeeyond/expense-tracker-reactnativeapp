@@ -99,7 +99,11 @@ export const globalStyle = StyleSheet.create({
     fontFamily: 'Lato',
   },
   fs6: {
-    fontSize: scaleFontSize(12),
+    fontSize: scaleFontSize(14),
+    fontFamily: 'Lato',
+  },
+  fs7: {
+    fontSize: scaleFontSize(11),
     fontFamily: 'Lato',
   },
   textWhite: {

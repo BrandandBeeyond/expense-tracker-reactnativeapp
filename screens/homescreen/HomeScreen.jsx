@@ -1,9 +1,20 @@
 import React from 'react';
-import { Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import {
+  Image,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import Topbar from '../../components/topbar/Topbar';
 import { globalStyle } from '../../assets/styles/gloabalStyle';
 import { HomeStyle } from './HomeStyle';
-import { horizontalScale } from '../../assets/styles/Scaling';
+import {
+  horizontalScale,
+  scaleFontSize,
+  verticalScale,
+} from '../../assets/styles/Scaling';
 import { Avatar, Button, Icon } from 'react-native-paper';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -91,9 +102,61 @@ const HomeScreen = ({ navigation }) => {
         <View style={HomeStyle.hrOrange}></View>
 
         <View style={[globalStyle.mt15]}>
-            <View style={[HomeStyle.budgetBoxSet,globalStyle.mx10]}>
+          <View style={globalStyle.mx10}>
+            <Text
+              style={[
+                globalStyle.fs5,
+                globalStyle.fwbold,
+                { marginVertical: verticalScale(12) },
+              ]}
+            >
+              Your Budgets
+            </Text>
+            <View style={[HomeStyle.budgetBoxSet, globalStyle.p15]}>
+              <View style={{ width: '70%' }}>
+                <Text
+                  style={[{ fontSize: scaleFontSize(14), fontWeight: '500' }]}
+                >
+                  No budget for this month ?
+                </Text>
+                <Text
+                  style={[
+                    {
+                      fontSize: scaleFontSize(12),
+                      fontWeight: '400',
+                      marginTop: verticalScale(8),
+                    },
+                  ]}
+                >
+                  setting a budget for your spending is a crucial in achieving
+                  your financial goals
+                </Text>
 
+                <Button
+                  mode="contained"
+                  buttonColor="#17181c"
+                  style={[HomeStyle.normalBtn,{
+                    borderRadius: horizontalScale(6)
+                  }]}
+                >
+                  <Text style={[globalStyle.textWhite, {fontSize:scaleFontSize(11),lineHeight: verticalScale(9)}]}>
+                  Setup budget
+                  </Text>
+                </Button>
+              </View>
+              <View>
+                <Image
+                  source={require('../../assets/images/vectors/setbudget.png')}
+                  objectFit="contain"
+                  resizeMode="contain"
+                  style={{
+                    width: horizontalScale(95),
+                    height: verticalScale(145),
+                  }}
+                />
+              </View>
             </View>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
