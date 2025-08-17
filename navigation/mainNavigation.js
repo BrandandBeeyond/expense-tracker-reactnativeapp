@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreens from '../screens/onboardingscreens/OnboardingScreens';
 import PasswordScreen from '../screens/authscreen/PasswordScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator  } from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -18,11 +18,15 @@ import Reports from '../screens/reports/Reports';
 import AddTransaction from '../screens/transactions/AddTransaction';
 import CustomTabbarButton from '../components/custombutton/CustomTabbarButton';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import { horizontalScale, scaleFontSize, verticalScale } from '../assets/styles/Scaling';
+import {
+  horizontalScale,
+  scaleFontSize,
+  verticalScale,
+} from '../assets/styles/Scaling';
+import AddBudget from '../screens/transactions/AddBudget';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
 
 const CustomBackButton = ({ navigation }) => {
   return (
@@ -35,16 +39,12 @@ const CustomBackButton = ({ navigation }) => {
   );
 };
 
-
-
-
 const HomeTabs = () => (
   <Tab.Navigator
     screenOptions={{
       tabBarShowLabel: true,
       tabBarStyle: styles.tabBar,
       tabBarActiveTintColor: '#ffbb5f',
-      
     }}
   >
     <Tab.Screen
@@ -73,7 +73,7 @@ const HomeTabs = () => (
         tabBarLabel: '',
         tabBarIcon: () => null,
         headerTitle: 'Add Transaction',
-        headerTitleStyle:{fontSize:scaleFontSize(17)},
+        headerTitleStyle: { fontSize: scaleFontSize(17) },
         tabBarStyle: { display: 'none' },
         headerLeft: () => <CustomBackButton navigation={navigation} />,
         tabBarButton: props => <CustomTabbarButton {...props} />,
@@ -99,9 +99,6 @@ const HomeTabs = () => (
     />
   </Tab.Navigator>
 );
-
-
-
 
 export const MainNavigation = () => {
   const [initialRoute, setInitialRoute] = useState(null);
@@ -146,6 +143,16 @@ export const MainNavigation = () => {
       />
 
       <Stack.Screen
+        name="AddBudget"
+        component={AddBudget}
+        options={({ navigation }) => ({
+          headerTitle: 'Add Budget',
+          headerTitleStyle: { fontSize: scaleFontSize(17) },
+          headerLeft:()=><CustomBackButton navigation={navigation}/>
+        })}
+      />
+
+      <Stack.Screen
         name="OnboardingScreens"
         component={OnboardingScreens}
         options={{ headerShown: false }}
@@ -167,11 +174,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#0d0f1b',
     borderTopWidth: 0,
-    bottom:verticalScale(30),
+    bottom: verticalScale(30),
     elevation: 3,
-    borderRadius:horizontalScale(100),
-    paddingTop:verticalScale(5),
-    paddingHorizontal:horizontalScale(10),
+    borderRadius: horizontalScale(100),
+    paddingTop: verticalScale(5),
+    paddingHorizontal: horizontalScale(10),
     marginHorizontal: horizontalScale(20),
   },
 });

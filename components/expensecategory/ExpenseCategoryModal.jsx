@@ -13,7 +13,7 @@ import { Button, TextInput } from 'react-native-paper';
 import ReactNativeModal from 'react-native-modal';
 import { fetchExpenseCategories } from '../../redux/actions/ExpenseCategoryAction';
 import { useDispatch, useSelector } from 'react-redux';
-import { horizontalScale } from '../../assets/styles/Scaling';
+import { horizontalScale, scaleFontSize } from '../../assets/styles/Scaling';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const ExpenseCategoryModal = () => {
@@ -72,13 +72,13 @@ const ExpenseCategoryModal = () => {
         <Image
           source={{ uri: item.icon.url }}
           style={{
-            width: 30,
-            height: 30,
+            width: 26,
+            height: 26,
           }}
         />
       </View>
 
-      <Text style={[globalStyle.fs6, globalStyle.mt5, { fontWeight: '600' }]}>
+      <Text style={[globalStyle.fs7, globalStyle.mt5, { fontWeight: '600' }]}>
         {item.name}
       </Text>
     </TouchableOpacity>
@@ -122,7 +122,7 @@ const ExpenseCategoryModal = () => {
                 },
               ]}
             >
-              <Text style={[globalStyle.fs5, globalStyle.fwbold]}>
+              <Text style={[globalStyle.fs5, {fontWeight: '700'}]}>
                 Choose Category
               </Text>
               <Pressable onPress={hideCategoryModal}>
@@ -142,9 +142,8 @@ const ExpenseCategoryModal = () => {
                   >
                     <Text
                       style={[
-                        globalStyle.fs5,
-                        globalStyle.fwbold,
                         globalStyle.mb10,
+                        {fontSize:scaleFontSize(13), fontWeight: '600'}
                       ]}
                     >
                       {type}
@@ -155,7 +154,6 @@ const ExpenseCategoryModal = () => {
                       renderItem={renderCategoryItem}
                       keyExtractor={item => item._id}
                       columnWrapperStyle={{
-                        justifyContent: 'flex-start',
                         gap: 10,
                       }}
                       scrollEnabled={false}

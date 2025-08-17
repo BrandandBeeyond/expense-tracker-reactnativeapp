@@ -122,7 +122,8 @@ const HomeScreen = ({ navigation }) => {
                 <Text
                   style={[
                     {
-                      fontSize: scaleFontSize(12),
+                      fontSize: scaleFontSize(13),
+                      lineHeight: verticalScale(16),
                       fontWeight: '400',
                       marginTop: verticalScale(8),
                     },
@@ -135,6 +136,7 @@ const HomeScreen = ({ navigation }) => {
                 <Button
                   mode="contained"
                   buttonColor="#17181c"
+                  onPress={() => navigation.navigate('AddBudget')}
                   style={[HomeStyle.normalBtn,{
                     borderRadius: horizontalScale(6)
                   }]}
@@ -146,12 +148,12 @@ const HomeScreen = ({ navigation }) => {
               </View>
               <View>
                 <Image
-                  source={require('../../assets/images/vectors/setbudget.png')}
+                  source={require('../../assets/images/vectors/budget.png')}
                   objectFit="contain"
                   resizeMode="contain"
                   style={{
-                    width: horizontalScale(95),
-                    height: verticalScale(145),
+                    width: horizontalScale(65),
+                    height: verticalScale(110),
                   }}
                 />
               </View>

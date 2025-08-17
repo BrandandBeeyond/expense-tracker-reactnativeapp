@@ -1,3 +1,5 @@
+
+
 export const Routes = {
   AuthScreen: 'AuthScreen',
   PasswordScreen: 'PasswordScreen',
@@ -7,4 +9,5 @@ export const Routes = {
   MoreDetail: 'MoreDetail',
   Reports: 'Reports',
   AddTransaction: 'AddTransaction',
+  AddBudget:'AddBudget'
 };
