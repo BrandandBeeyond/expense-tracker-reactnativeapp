@@ -198,6 +198,15 @@ export const globalStyle = StyleSheet.create({
     fontSize: scaleFontSize(14),
     width: Dimensions.get('window').width - 40,
   },
+  mintransactionInput: {
+    backgroundColor: '#faf0dbff',
+    borderRadius: horizontalScale(15),
+    borderTopLeftRadius: horizontalScale(15),
+    borderTopRightRadius: horizontalScale(15),
+    borderWidth: horizontalScale(0),
+    fontSize: scaleFontSize(14),
+    width: Dimensions.get('window').width - 70,
+  },
   calenderInput: {
     backgroundColor: '#ffe9ba',
     height: verticalScale(42),
@@ -236,5 +245,8 @@ export const globalStyle = StyleSheet.create({
     borderTopRightRadius: horizontalScale(20),
     height: verticalScale(450),
     overflow: 'hidden',
+  },
+  woccupied: {
+    width: Dimensions.get('window').width - 40,
   },
 });
