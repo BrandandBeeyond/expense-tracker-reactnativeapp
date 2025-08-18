@@ -4,11 +4,9 @@ import { TextInput } from 'react-native-paper';
 import { globalStyle } from '../../assets/styles/gloabalStyle';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-
 const DatePicker = () => {
   const [datePickerVisble, setDatePickerVisble] = useState(false);
   const [selectDate, setSelectDate] = useState('');
-
 
   const showDatePicker = () => {
     setDatePickerVisble(true);
@@ -56,15 +54,12 @@ const DatePicker = () => {
         />
       </TouchableOpacity>
 
-     
-
       <DateTimePickerModal
         mode="date"
         isVisible={datePickerVisble}
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
       />
-      
     </>
   );
 };
