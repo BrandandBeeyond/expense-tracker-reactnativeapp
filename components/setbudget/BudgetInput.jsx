@@ -37,7 +37,12 @@ const BudgetInput = ({ mode = 'monthly' }) => {
         style={[
           globalStyle.mt30,
           globalStyle.p15,
-          { backgroundColor: '#f5bf73ff', borderRadius: horizontalScale(10) },
+          {
+            backgroundColor: '#f5bf73ff',
+            borderRadius: horizontalScale(10),
+            borderTopRightRadius: horizontalScale(10),
+            borderBottomRightRadius: horizontalScale(10),
+          },
         ]}
       >
         <Text
