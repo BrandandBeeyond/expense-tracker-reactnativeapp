@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Text, View } from 'react-native';
 import { globalStyle } from '../../assets/styles/gloabalStyle';
 import { horizontalScale } from '../../assets/styles/Scaling';
+import { useSelector } from 'react-redux';
 
 const BudgetCategory = () => {
+
+  const {expenseCategories} = useSelector(state => state.expenses);
+
+  
+
   return (
     <View
       style={[
@@ -18,6 +24,8 @@ const BudgetCategory = () => {
       ]}
     >
       <Text style={globalStyle.fs5}>Included Categories</Text>
+
+
     </View>
   );
 };
