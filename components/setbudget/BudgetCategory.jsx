@@ -73,7 +73,7 @@ const BudgetCategory = () => {
                 {
                   backgroundColor: '#f5bf73ff',
                   image: (
-                    <Text style={{ textAlign: 'center', marginTop: 20 }}>
+                    <Text style={{ textAlign: 'center', marginTop: verticalScale(20) }}>
                       No categories available.
                     </Text>
                   ),
