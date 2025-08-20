@@ -249,4 +249,13 @@ export const globalStyle = StyleSheet.create({
   woccupied: {
     width: Dimensions.get('window').width - 40,
   },
+  categoryBox:{
+    backgroundColor: '#ffffff',
+    padding: horizontalScale(10),
+    borderRadius: horizontalScale(10),
+    marginBottom: verticalScale(10),
+    width: Dimensions.get('window').width / 2 - horizontalScale(20),
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });
