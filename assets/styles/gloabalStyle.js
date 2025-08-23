@@ -199,7 +199,7 @@ export const globalStyle = StyleSheet.create({
     width: Dimensions.get('window').width - 40,
   },
   mintransactionInput: {
-    backgroundColor: '#faf0dbff',
+    backgroundColor: '#ffe9ba',
     borderRadius: horizontalScale(15),
     borderTopLeftRadius: horizontalScale(15),
     borderTopRightRadius: horizontalScale(15),
@@ -249,7 +249,7 @@ export const globalStyle = StyleSheet.create({
   woccupied: {
     width: Dimensions.get('window').width - 40,
   },
-  categoryBox:{
+  categoryBox: {
     backgroundColor: '#ffffff',
     padding: horizontalScale(10),
     borderRadius: horizontalScale(10),
@@ -257,5 +257,15 @@ export const globalStyle = StyleSheet.create({
     width: Dimensions.get('window').width / 2 - horizontalScale(20),
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
+  budgetBoxSet: {
+    maxHeight: verticalScale(110),
+    width: Dimensions.get('window').width - horizontalScale(20),
+    backgroundColor: '#eeeeecff',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: horizontalScale(10),
+  },
 });

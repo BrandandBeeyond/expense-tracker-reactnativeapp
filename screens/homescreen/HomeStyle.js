@@ -21,7 +21,7 @@ export const HomeStyle = StyleSheet.create({
     borderRadius: horizontalScale(20),
   },
   budgetBoxSet: {
-    height: verticalScale(110),
+    maxHeight: verticalScale(110),
     width:Dimensions.get('window').width - horizontalScale(20),
     backgroundColor: '#eeeeecff',
     display: 'flex',

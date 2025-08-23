@@ -33,24 +33,16 @@ const BudgetInput = ({ mode = 'monthly' }) => {
 
   return (
     <>
+   
       <View
         style={[
-          globalStyle.mt30,
-          globalStyle.p15,
-          {
-            backgroundColor: '#f5bf73ff',
-            borderRadius: horizontalScale(10),
-            borderTopRightRadius: horizontalScale(10),
-            borderBottomRightRadius: horizontalScale(10),
-          },
+          globalStyle.mt20,
+          {padding:horizontalScale(6)}
+         
         ]}
       >
         <Text
-          style={{
-            fontSize: scaleFontSize(15),
-            fontWeight: '400',
-            marginBottom: verticalScale(10),
-          }}
+          style={[{ marginBottom: verticalScale(15) ,fontSize:scaleFontSize(15), fontWeight: '500' }]}
         >
           {mode === 'monthly' ? 'Budget for Month' : 'Budget for Year'}
         </Text>
@@ -59,7 +51,7 @@ const BudgetInput = ({ mode = 'monthly' }) => {
             value={displayValue}
             editable={false}
             label={mode === 'monthly' ? 'Select Month' : 'Select Year'}
-            style={[globalStyle.mintransactionInput]}
+            style={[globalStyle.transactionInput]}
             underlineColor="transparent"
             left={
               <TextInput.Icon
@@ -71,18 +63,14 @@ const BudgetInput = ({ mode = 'monthly' }) => {
         </TouchableOpacity>
 
         <Text
-          style={{
-            fontSize: scaleFontSize(15),
-            fontWeight: '400',
-            marginTop: verticalScale(15),
-          }}
+          style={[{ marginTop: verticalScale(15) ,fontSize:scaleFontSize(15), fontWeight: '500' }]}
         >
           Set Budget Amount
         </Text>
         <TextInput
           value={budegt}
           label="Set Budget Amount"
-          style={[globalStyle.mintransactionInput, globalStyle.mt10]}
+          style={[globalStyle.transactionInput, globalStyle.mt10]}
           underlineColor="transparent"
           left={
             <TextInput.Icon

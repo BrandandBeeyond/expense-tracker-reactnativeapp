@@ -12,7 +12,7 @@ const Timelinetabs = () => {
 
   return (
     <Tab.Navigator
-      style={[globalStyle.px20, { marginTop: verticalScale(20) }]}
+      style={[globalStyle.px15, { marginTop: verticalScale(20) }]}
       screenOptions={{
         tabBarStyle: {
           elevation: 0,
