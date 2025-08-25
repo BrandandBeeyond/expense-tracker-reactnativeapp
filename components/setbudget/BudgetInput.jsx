@@ -81,6 +81,8 @@ const BudgetInput = ({ mode = 'monthly' }) => {
         />
       </View>
 
+      
+
       {showPicker && (
         <MonthPicker
           onChange={onChange}

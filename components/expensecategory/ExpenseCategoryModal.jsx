@@ -123,7 +123,7 @@ const ExpenseCategoryModal = () => {
               ]}
             >
               <Text style={[globalStyle.fs5, {fontWeight: '700'}]}>
-                Choose Category
+                Select Category
               </Text>
               <Pressable onPress={hideCategoryModal}>
                 <AntDesign name="close" size={20} color={'#000000'} />

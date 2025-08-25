@@ -1,44 +1,135 @@
-import React from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  Pressable,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { globalStyle } from '../../assets/styles/gloabalStyle';
-import { horizontalScale, scaleFontSize, verticalScale } from '../../assets/styles/Scaling';
-import { useSelector } from 'react-redux';
-import Onboarding from 'react-native-onboarding-swiper';
-import { TextInput } from 'react-native-paper';
+import {
+  horizontalScale,
+  scaleFontSize,
+  verticalScale,
+} from '../../assets/styles/Scaling';
+import { useDispatch, useSelector } from 'react-redux';
+import { Searchbar, TextInput } from 'react-native-paper';
+import { fetchExpenseCategories } from '../../redux/actions/ExpenseCategoryAction';
+import ReactNativeModal from 'react-native-modal';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const BudgetCategory = () => {
+  const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState('');
   const { expenseCategories } = useSelector(state => state.expenses);
+  const [loading, setLoading] = useState(false);
+  const [categoryModalVisible, setCategoryModalVisible] = useState(false);
 
+  const showCategoryModal = () => {
+    setCategoryModalVisible(true);
+  };
 
+  const hideCategoryModal = () => {
+    setCategoryModalVisible(false);
+  };
+
+  useEffect(() => {
+    if (categoryModalVisible) {
+      dispatch(fetchExpenseCategories());
+    }
+  }, [categoryModalVisible, dispatch]);
 
   return (
-    <View
-      style={[
-        globalStyle.mt15,
-         {padding:horizontalScale(6)}
-       
-      ]}
-    >
-      <Text style={[{ marginBottom: verticalScale(10) ,fontSize:scaleFontSize(15), fontWeight: '500' }]}>
-        Included Categories
-      </Text>
+    <>
+      <View style={[globalStyle.mt15, { padding: horizontalScale(6) }]}>
+        <Text
+          style={[
+            {
+              marginBottom: verticalScale(10),
+              fontSize: scaleFontSize(15),
+              fontWeight: '500',
+            },
+          ]}
+        >
+          Included Categories
+        </Text>
 
-      <TouchableOpacity style={globalStyle.mt15}>
-             <TextInput
-               label="Select Categories"
-               editable={false}
-               style={globalStyle.transactionInput}
-               underlineColor="transparent"
-               left={
-                 <TextInput.Icon
-                   icon="format-list-bulleted"
-                   style={{ backgroundColor: '#FFFFFF' }}
-                 />
-               }
-               right={<TextInput.Icon icon="chevron-right" />}
-             />
-           </TouchableOpacity>
-    </View>
+        <TouchableOpacity style={globalStyle.mt15} onPress={showCategoryModal}>
+          <TextInput
+            label="Select Categories"
+            editable={false}
+            style={globalStyle.transactionInput}
+            underlineColor="transparent"
+            left={
+              <TextInput.Icon
+                icon="format-list-bulleted"
+                style={{ backgroundColor: '#FFFFFF' }}
+              />
+            }
+            right={<TextInput.Icon icon="chevron-right" />}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <ReactNativeModal
+        isVisible={categoryModalVisible}
+        onBackdropPress={hideCategoryModal}
+        style={globalStyle.btmmodal}
+      >
+        <View style={globalStyle.modalContent}>
+          <ScrollView style={globalStyle.scrollContent}>
+            <View
+              style={[
+                globalStyle.justifyBtn,
+                globalStyle.aligncenter,
+                globalStyle.p15,
+                globalStyle.drow,
+                {
+                  borderBottomColor: '#ffbb5f',
+                  borderBottomWidth: horizontalScale(1),
+                },
+              ]}
+            >
+              <Text style={[globalStyle.fs5, { fontWeight: '700' }]}>
+                Select budget categories
+              </Text>
+              <Pressable onPress={hideCategoryModal}>
+                <AntDesign name="close" size={20} color={'#000000'} />
+              </Pressable>
+            </View>
+            {loading ? (
+              <Text>Loading</Text>
+            ) : (
+              <>
+                <View
+                  style={[
+                    globalStyle.mt10,
+                    globalStyle.mx10,
+                    { marginBottom: verticalScale(20)},
+                  ]}
+                >
+                  <Searchbar
+                    placeholder="Search"
+                    style={{height:verticalScale(32)}}
+                    onChangeText={setSearchQuery}
+                    value={searchQuery}
+                  />
+                  <View
+                    style={[
+                      globalStyle.drow,
+                      globalStyle.aligncenter,
+                      globalStyle.justifyBtn,
+                    ]}
+                  >
+                    <View></View>
+                  </View>
+                </View>
+              </>
+            )}
+          </ScrollView>
+        </View>
+      </ReactNativeModal>
+    </>
   );
 };
 
