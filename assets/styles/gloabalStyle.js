@@ -258,6 +258,9 @@ export const globalStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  bgSemiMain:{
+      backgroundColor:'#ffe9ba'
+  },
   budgetBoxSet: {
     maxHeight: verticalScale(110),
     width: Dimensions.get('window').width - horizontalScale(20),

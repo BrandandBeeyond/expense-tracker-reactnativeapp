@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Image,
   Pressable,
   ScrollView,
   Text,
@@ -13,7 +14,7 @@ import {
   verticalScale,
 } from '../../assets/styles/Scaling';
 import { useDispatch, useSelector } from 'react-redux';
-import { Searchbar, TextInput } from 'react-native-paper';
+import { Button, Checkbox, TextInput } from 'react-native-paper';
 import { fetchExpenseCategories } from '../../redux/actions/ExpenseCategoryAction';
 import ReactNativeModal from 'react-native-modal';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -23,6 +24,7 @@ const BudgetCategory = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const { expenseCategories } = useSelector(state => state.expenses);
   const [loading, setLoading] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
 
   const showCategoryModal = () => {
@@ -31,6 +33,14 @@ const BudgetCategory = () => {
 
   const hideCategoryModal = () => {
     setCategoryModalVisible(false);
+  };
+
+  const toggleCategory = categoryId => {
+    setSelectedCategories(prev =>
+      prev.includes(categoryId)
+        ? prev.filter(id => id !== categoryId)
+        : [...prev, categoryId],
+    );
   };
 
   useEffect(() => {
@@ -105,24 +115,70 @@ const BudgetCategory = () => {
                   style={[
                     globalStyle.mt10,
                     globalStyle.mx10,
-                    { marginBottom: verticalScale(20)},
+                    { marginBottom: verticalScale(40) },
                   ]}
                 >
-                  <Searchbar
-                    placeholder="Search"
-                    style={{height:verticalScale(32)}}
-                    onChangeText={setSearchQuery}
-                    value={searchQuery}
-                  />
-                  <View
-                    style={[
-                      globalStyle.drow,
-                      globalStyle.aligncenter,
-                      globalStyle.justifyBtn,
-                    ]}
+                  {expenseCategories.map((category, index) => (
+                    <View
+                      style={[
+                        globalStyle.drow,
+                        globalStyle.aligncenter,
+                        globalStyle.justifyBtn,
+                        globalStyle.bgSemiMain,
+                        globalStyle.py5,
+                        globalStyle.px15,
+                        globalStyle.rounded2,
+                        globalStyle.mb20,
+                      ]}
+                    >
+                      <View
+                        style={[
+                          globalStyle.drow,
+                          globalStyle.cg5,
+                          globalStyle.aligncenter,
+                        ]}
+                      >
+                        <View
+                          style={[
+                            globalStyle.bgWhite,
+                            {
+                              padding: verticalScale(8),
+                              borderRadius: horizontalScale(50),
+                            },
+                          ]}
+                        >
+                          <Image
+                            source={{ uri: category.icon.url }}
+                            style={{
+                              width: 23,
+                              height: 23,
+                            }}
+                          />
+                        </View>
+
+                        <Text style={[globalStyle.fs5, { fontWeight: '500' }]}>
+                          {category.name}
+                        </Text>
+                      </View>
+                      <Checkbox
+                        status={
+                          selectedCategories.includes(category._id)
+                            ? 'checked'
+                            : 'unchecked'
+                        }
+                        onPress={() => toggleCategory(category._id)}
+                        color="#ff9900"
+                      />
+                    </View>
+                  ))}
+                </View>
+                <View style={[globalStyle.px15, { alignItems: 'flex-end' }]}>
+                  <Button
+                    buttonColor="#17181c"
+                    style={{ paddingHorizontal: horizontalScale(20) }}
                   >
-                    <View></View>
-                  </View>
+                    <Text style={globalStyle.textWhite}>Done</Text>
+                  </Button>
                 </View>
               </>
             )}
