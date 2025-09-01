@@ -63,7 +63,7 @@ const BudgetInput = ({ mode = 'monthly' }) => {
         </TouchableOpacity>
 
         <Text
-          style={[{ marginTop: verticalScale(15) ,fontSize:scaleFontSize(15), fontWeight: '500' }]}
+          style={[{ marginTop: verticalScale(30) ,fontSize:scaleFontSize(15), fontWeight: '500' }]}
         >
           Set Budget Amount
         </Text>

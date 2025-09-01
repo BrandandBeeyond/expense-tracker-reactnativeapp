@@ -86,7 +86,7 @@ const ExpenseCategoryModal = () => {
 
   return (
     <>
-      <TouchableOpacity style={globalStyle.mt15} onPress={showCategoryModal}>
+      <TouchableOpacity style={globalStyle.mt20} onPress={showCategoryModal}>
         <TextInput
           label="Select Category"
           editable={false}

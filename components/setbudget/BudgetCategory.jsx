@@ -27,6 +27,8 @@ const BudgetCategory = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
 
+ 
+
   const showCategoryModal = () => {
     setCategoryModalVisible(true);
   };
@@ -64,7 +66,7 @@ const BudgetCategory = () => {
           Included Categories
         </Text>
 
-        <TouchableOpacity style={globalStyle.mt15} onPress={showCategoryModal}>
+        <TouchableOpacity style={globalStyle.mt5} onPress={showCategoryModal}>
           <TextInput
             label="Select Categories"
             editable={false}
@@ -118,7 +120,7 @@ const BudgetCategory = () => {
                     { marginBottom: verticalScale(40) },
                   ]}
                 >
-                  {expenseCategories.map((category, index) => (
+                  {expenseCategories.filter(category=>category.transactionType === 'Expense').map((category, index) => (
                     <View
                       style={[
                         globalStyle.drow,
